@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="preTimer">
+            <input type="button" value="New timer" onclick="newTimer();">
+            <input type="button" value="Join timer" onclick="joinTimer();">
+        </div>
+        <div id="timerContent">
+            <h1 id="timerText"></h1>
+            <p id="code"></p>
+            <input type = "button" value="Pause">
+            <input type = "button" value = "Stop">
+        </div>
+        <script>
+            document.getElementById('timerContent').style.display = 'none';
+            // When "new timer" is pressed, create alert that asks user for number of seconds
+            // Take in that number and send POST request to create new timer (/timer)
+            // If "join timer", alert should ask for code
+            // If it doesn't work, call ask function again
+
+            // Hide new/join timer buttons
+            // send GET request every eighth of a second to /timer/get to get current time
+            // Update timerText with that
+            function newTimer() {
+                let time = prompt("Enter time in seconds.");
+                let code = createTimer(time);
+                if (code !== "") {
+                    runTimer(code);
+                } else {
+                    alert("Invalid time");
+                }
+            }
+            function joinTimer() {
+                let code = prompt("Enter code for timer");
+                let timer = runTimer(code)
+                if (timer == "error") {
+                    alert("Invalid code");
+                }
+            }
+            function createTimer(time) {
+                if (isNaN(time)) {
+                    return ""
+                } else {
+                    return "agaaga"; // Create timer
+                }
+            }
+            function runTimer(code) {
+                document.getElementById('timerContent').style.display = 'initial';
+                document.getElementById('preTimer').style.display = 'none';
+                document.getElementById("code").innerText = code;
+            }
+            /*const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+                document.getElementById('timerText').innerText = this.responseText;
+            }
+            xhttp.open("GET","http://127.0.0.1:5000/timers/gleeb", true)
+            xhttp.send()*/
+        </script>
+    </body>
+</html>
