@@ -12,10 +12,11 @@ def getTime(code):
     if request.method == "POST":
         if request.form["action"] == "PAUSE":
             timer.timers[code][1] = not timer.timers[code][1]
-    try:
-        return timer.timers[code][0]
-    except:
-        return "error"
+    else:
+        try:
+            return timer.timers[code][0]
+        except:
+            return "error"
 
 
 @app.route('/create', methods=['POST'])
@@ -27,4 +28,4 @@ def create():
     return code
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
